@@ -1,4 +1,4 @@
-### MockMate MCP (`/mockmate-mcp`) 🔥
+### MockMate MCP 🔥
 
 **MockMate** ist ein innovativer MCP-Server (Model Context Protocol), der Frontend-Entwicklern ermöglicht, Mock-APIs in Sekunden zu generieren – direkt aus ihrem KI-Editor heraus!
 
