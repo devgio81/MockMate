@@ -20,7 +20,7 @@ npm install
 
 ### 2. API-Key holen
 
-1. Gehe zu [tomczak.io/dashboard/api-keys](https://tomczak.io/dashboard/api-keys)
+1. Gehe zu [tomczak.io/dashboard/api-keys](https://tomczak.dev/dashboard/api-keys)
 2. Erstelle einen neuen API-Key
 3. Kopiere den Key für die Konfiguration
 
