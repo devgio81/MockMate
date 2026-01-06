@@ -1,65 +1,124 @@
-### MockMate MCP 🔥
+# MockMate MCP Server
 
-**MockMate** ist ein innovativer MCP-Server (Model Context Protocol), der Frontend-Entwicklern ermöglicht, Mock-APIs in Sekunden zu generieren – direkt aus ihrem KI-Editor heraus!
+Ein Model Context Protocol (MCP) Server für das Erstellen von Mock-APIs direkt aus deinem KI-Editor.
 
-#### Features
-- ⚡ **Instant Mock-APIs** - Keine Backend-Setup nötig
-- 🤖 **KI-gestützte Datengenerierung** - Realistische Testdaten
-- 🔗 **Unique API-Endpoints** - Jede Mock-API erhält eine eigene URL
-- 🛠️ **Editor-Integration** - Funktioniert mit Cursor AI, Cline, VS Code & GitHub Copilot
-- 💯 **100% Kostenlos** - Keine Limits, keine versteckten Kosten
+## Features
 
-#### Mehr erfahren
-- 📖 **[MockMate Landing Page](https://tomczak.dev/mockmate-mcp)** - Vollständige Dokumentation & Installation
-- 🐙 **[MockMate GitHub Repository](https://github.com/devgio81/MockMate)** - Source Code & Setup
+- 🚀 **create_mock** - Erstelle Mock-Endpoints mit beliebigen JSON-Daten
+- 📋 **list_mocks** - Liste alle aktiven Mocks auf
+- 🗑️ **delete_mock** - Lösche Mocks
+- 🔗 **get_mock_url** - Hole die öffentliche URL eines Mocks
 
-#### Quick Installation
+## Installation
+
+### 1. Dependencies installieren
 
 ```bash
-# MockMate Repository klonen
-git clone https://github.com/devgio81/MockMate.git
-cd MockMate
+cd mockmate-mcp
+npm install
+```
 
-# MCP-Konfiguration hinzufügen (Cursor AI / Cline)
-# ~/.cursor/mcp.json oder Cline Settings:
+### 2. API-Key holen
+
+1. Gehe zu [tomczak.io/dashboard/api-keys](https://tomczak.io/dashboard/api-keys)
+2. Erstelle einen neuen API-Key
+3. Kopiere den Key für die Konfiguration
+
+### 3. Editor konfigurieren
+
+#### Claude Desktop
+
+Bearbeite `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
 {
   "mcpServers": {
     "mockmate": {
-      "command": "node",
-      "args": [
-        "/pfad/zu/MockMate/index.js",
-        "https://n8n.tomczak.dev/webhook/mcp"
-      ]
+      "command": "npx",
+      "args": ["tsx", "/PFAD/ZU/mockmate-mcp/index.ts"],
+      "env": {
+        "MOCKMATE_API_KEY": "dein-api-key-hier"
+      }
     }
   }
 }
 ```
 
-Mehr Details auf der **[MockMate Landing Page](https://tomczak.dev/mockmate-mcp)**.
+#### Cursor
 
----
+Erstelle `.cursor/mcp.json` im Projektverzeichnis:
 
-## 📄 Lizenz
+```json
+{
+  "servers": {
+    "mockmate": {
+      "command": "npx",
+      "args": ["tsx", "/PFAD/ZU/mockmate-mcp/index.ts"],
+      "env": {
+        "MOCKMATE_API_KEY": "dein-api-key-hier"
+      }
+    }
+  }
+}
+```
 
-Dieses Projekt ist proprietär und urheberrechtlich geschützt.  
-© 2026 Martin Tomczak. Alle Rechte vorbehalten.
+#### VS Code (GitHub Copilot)
 
----
+Erstelle `.vscode/mcp.json` im Projektverzeichnis:
 
-## 🙏 Danksagungen
+```json
+{
+  "servers": {
+    "mockmate": {
+      "command": "npx",
+      "args": ["tsx", "/PFAD/ZU/mockmate-mcp/index.ts"],
+      "env": {
+        "MOCKMATE_API_KEY": "dein-api-key-hier"
+      }
+    }
+  }
+}
+```
 
-- [Next.js Team](https://nextjs.org/) für das großartige Framework
-- [Tailwind Labs](https://tailwindcss.com/) für Tailwind CSS
-- [Supabase](https://supabase.com/) für die Backend-Infrastruktur
+## Verwendung
 
----
+Nach der Konfiguration kannst du in deinem KI-Editor einfach fragen:
 
-## 🔗 Links
+> "Erstelle mir einen Mock für eine User-API mit 5 Beispiel-Usern"
 
-- 📖 [MockMate MCP Landing Page](https://tomczak.dev/mockmate-mcp)
-- 🐙 [MockMate GitHub Repository](https://github.com/devgio81/MockMate)
-- 📝 [Blog](https://tomczak.dev/blog)
-- 💼 [Services](https://tomczak.dev/services)
-- 📧 [Kontakt](https://tomczak.dev/contact)
+> "Zeige mir alle meine aktiven Mocks"
 
----
+> "Lösche den Mock mit ID abc123"
+
+## Beispiel
+
+```
+User: Erstelle einen Mock für Produkte
+
+AI: Ich erstelle einen Mock-Endpoint für Produkte...
+
+✅ Mock erstellt!
+URL: https://n8n.tomczak.dev/webhook/mock/products-a1b2c3
+Gültig bis: 13.01.2026
+```
+
+## Umgebungsvariablen
+
+| Variable | Beschreibung | Standard |
+|----------|--------------|----------|
+| `MOCKMATE_API_KEY` | Dein API-Key (erforderlich) | - |
+| `MOCKMATE_API_URL` | Backend-URL (optional) | `https://n8n.tomczak.dev/webhook/mcp-action` |
+
+## Entwicklung
+
+```bash
+# Server lokal testen
+npm run dev
+
+# TypeScript kompilieren
+npm run build
+```
+
+## Lizenz
+
+MIT © Martin Tomczak
